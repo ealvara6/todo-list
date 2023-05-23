@@ -1,0 +1,14 @@
+import sidebar from './sidebar/sidebar';
+import mainBody from './main-body/mainBody';
+
+const mainContent = () => {
+  const element = document.createElement('div');
+  element.id = 'main-content';
+
+  element.appendChild(sidebar());
+  element.appendChild(mainBody());
+
+  return element;
+};
+
+export default mainContent;
