@@ -1,0 +1,30 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ealvara6/todo-list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ealvara6/todo-list/issues"
+  },
+  "homepage": "https://github.com/ealvara6/todo-list#readme",
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.1",
+    "sass": "^1.62.1",
+    "sass-loader": "^13.3.0",
+    "webpack": "^5.83.1"
+  },
+  "dependencies": {
+    "date-fns": "^2.30.0"
+  }
+}
