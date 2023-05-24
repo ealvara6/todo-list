@@ -3,18 +3,18 @@
 
 body {
   font-family: 'Pangolin', cursive;
+	box-sizing: border-box;
 }
 
 button {
-	display: inline-block;
-	border: none;
-	padding: 1rem 2rem;
-	margin: 0;
 	text-decoration: none;
 	background: colors.$color2;
+	padding: 1rem 2rem;
+	border: none;
+	margin: 0;
+	border-radius: 15px;
 	color: #ffffff;
 	font-family: 'Pangolin', cursive;
-	font-size: 20px;
 	cursor: pointer;
 	text-align: center;
 	transition: background 250ms ease-in-out, 

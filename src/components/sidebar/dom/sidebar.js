@@ -1,9 +1,9 @@
 import './sidebar.scss';
 import createItem from './items';
+import createProjects from '../../projects/dom/project';
 import inboxIcon from '../../../assets/icons/inbox.png';
 import todayIcon from '../../../assets/icons/today.png';
 import upcomingIcon from '../../../assets/icons/upcoming.png';
-import projectIcon from '../../../assets/icons/project.png';
 
 const sidebarItems = [
   {
@@ -30,7 +30,6 @@ const createSidebarItems = (element) => {
 };
 
 const sidebar = () => {
-  // const sidebarItems = ['Inbox', 'Today', 'Upcoming'];
   const element = document.createElement('div');
   element.id = 'sidebar';
   createSidebarItems(element);
@@ -38,6 +37,12 @@ const sidebar = () => {
   const line = document.createElement('div');
   line.id = 'line';
   element.appendChild(line);
+
+  const projectsTitle = document.createElement('div');
+  projectsTitle.innerHTML = 'Projects';
+  element.appendChild(projectsTitle);
+
+  createProjects(element);
 
   return element;
 };
