@@ -27,6 +27,10 @@
     border-radius: 15px;
   }
 
+  .sidebar-item:focus {
+    background: colors.$color3;
+  }
+
   div {
     text-align: start;
   }
