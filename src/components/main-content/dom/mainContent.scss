@@ -1,0 +1,9 @@
+@use '../../../assets/styles/colors';
+
+#main-content {
+  display: grid;
+  grid-template-columns: minmax(min-content, 400px) 1fr;
+  grid-template-rows: 1fr;
+  height: 100vh;
+  background-color: colors.$color2;
+}

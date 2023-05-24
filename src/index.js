@@ -1,5 +1,6 @@
 import './assets/styles/reset.scss';
-import container from './components/dom_outputter/container/container';
+import './assets/styles/style.scss';
+import container from './components/container/dom/container';
 
 const component = () => {
   document.body.appendChild(container());

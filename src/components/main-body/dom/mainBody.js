@@ -1,3 +1,5 @@
+import './mainBody.scss';
+
 const mainBody = () => {
   const element = document.createElement('div');
   element.id = 'main-body';

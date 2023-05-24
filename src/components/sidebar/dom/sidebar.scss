@@ -1,0 +1,15 @@
+@use '../../../assets/styles/colors';
+
+#sidebar {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, min-content);
+  grid-column: 1;
+  grid-row: 1;
+  color: white;
+  font-size: 40px;
+  border: 1px black solid;
+  padding-top: 50px;
+  padding-left: 15px;
+  gap: 10px;
+}

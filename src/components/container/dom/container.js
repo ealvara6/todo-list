@@ -1,5 +1,6 @@
-import header from '../header/header';
-import mainContent from '../main-content/mainContent';
+import './container.scss';
+import header from '../../header/dom/header';
+import mainContent from '../../main-content/dom/mainContent';
 
 const container = () => {
   const element = document.createElement('div');
