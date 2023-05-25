@@ -8,3 +8,76 @@
   grid-template-rows: 1fr;
   background-color: colors.$color1;
 }
+
+.task-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  column-gap: 15px;
+  width: 400px;
+  height: 200px;
+}
+
+.form-input {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 40px 1fr;
+}
+
+#form-title {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+#due-date {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+#desc {
+  grid-column: 1;
+  grid-row: 2 / 4;
+}
+
+textarea {
+  resize: none;
+}
+
+#prio {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  column-gap: 15px;
+  button {
+    height: 40px;
+  }
+}
+
+#cancel-button {
+  background-color: colors.$color1;
+}
+
+#submit-button {
+  background-color: colors.$color3;
+}
+
+label {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center
+}
+
+input {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+input[type = 'text'] {
+  width: 150px;
+}
