@@ -1,5 +1,5 @@
 import {
-  newTaskButton, showTaskForm, createTaskForm, hideTaskForm,
+  newTaskButton, showTaskForm, createTaskForm, hideTaskForm, createTaskItem,
 } from '../../tasks/dom/task-dom';
 import addTask from '../../tasks/tasks';
 import './inbox-dom.scss';
@@ -18,9 +18,22 @@ const cancelClick = (taskButton, taskForm) => {
   formButtons.item(1).addEventListener('click', () => addTask(taskButton, taskForm));
 };
 
+const createInboxList = (element) => {
+  const tasks = JSON.parse(localStorage.getItem('allTasks'));
+  for (let i = 0; i < tasks.length; i += 1) {
+    element.appendChild(createTaskItem(tasks[i]));
+  }
+};
+
 const inboxInfo = () => {
   const element = document.createElement('div');
-  element.id = 'inbox-info';
+  element.id = 'task-list';
+
+  if (JSON.parse(localStorage.getItem('allTasks')) !== null) {
+    createInboxList(element);
+  } else {
+    element.innerHTML = 'There are no tasks available';
+  }
 
   return element;
 };

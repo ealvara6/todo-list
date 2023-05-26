@@ -18,6 +18,17 @@
   height: 200px;
 }
 
+.task {
+  display: grid;
+  background-color: colors.$color1;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  border: 1px black solid;
+  border-radius: 15px;
+}
+
 .form-input {
   display: grid;
   grid-template-columns: 1fr;
@@ -28,11 +39,6 @@
   grid-column: 1;
   grid-row: 1;
 }
-
-// .error {
-//   grid-column: 1;
-//   grid-row: 2;
-// }
 
 #due-date {
   grid-column: 2;
@@ -85,4 +91,39 @@ input {
 
 input[type = 'text'] {
   width: 150px;
+}
+
+.task-header {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.title-header {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.task-title {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+.due-date-header {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.task-due-date {
+  grid-row: 2;
+  grid-column: 2;
+}
+
+.prio-header {
+  grid-row: 1;
+  grid-column: 3;
+}
+
+.task-prio {
+  grid-row: 2;
+  grid-column: 3;
 }

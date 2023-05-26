@@ -111,6 +111,43 @@ const createTaskForm = () => {
   return element;
 };
 
+const createTaskItem = (item) => {
+  const task = document.createElement('button');
+  task.classList.add('task');
+
+  const title = document.createElement('div');
+  title.classList.add('task-title');
+  title.innerHTML = item.title;
+  task.appendChild(title);
+
+  const titleHeader = document.createElement('div');
+  titleHeader.classList.add('title-header', 'task-header');
+  titleHeader.innerHTML = 'Name';
+  task.appendChild(titleHeader);
+
+  const dueDate = document.createElement('div');
+  dueDate.classList.add('task-due-date');
+  dueDate.innerHTML = item.dueDate;
+  task.appendChild(dueDate);
+
+  const dueDateHeader = document.createElement('div');
+  dueDateHeader.classList.add('due-date-header', 'task-header');
+  dueDateHeader.innerHTML = 'Due Date';
+  task.appendChild(dueDateHeader);
+
+  const prio = document.createElement('div');
+  prio.classList.add('task-prio');
+  prio.innerHTML = item.prio;
+  task.appendChild(prio);
+
+  const prioHeader = document.createElement('div');
+  prioHeader.classList.add('prio-header', 'task-header');
+  prioHeader.innerHTML = 'Priority';
+  task.appendChild(prioHeader);
+
+  return task;
+};
+
 const newTaskButton = () => {
   const element = document.createElement('button');
   element.classList.add('task-button');
@@ -132,4 +169,5 @@ export {
   createTaskForm,
   hideTaskForm,
   handleSubmit,
+  createTaskItem,
 };
