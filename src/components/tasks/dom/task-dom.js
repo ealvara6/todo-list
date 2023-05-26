@@ -13,6 +13,8 @@ const hideTaskForm = (taskButton, taskForm) => {
 
 const handleSubmit = (taskButton, taskForm) => {
   hideTaskForm(taskButton, taskForm);
+  const title = document.getElementById('title-input');
+  console.log(title.value);
 };
 
 const createTaskForm = () => {
@@ -78,6 +80,7 @@ const createTaskForm = () => {
 
   const options = ['low', 'medium', 'high'];
   const prioInput = document.createElement('select');
+  prioInput.id = 'prio-input';
   options.forEach((item) => {
     const option = document.createElement('option');
     option.setAttribute('value', item);
