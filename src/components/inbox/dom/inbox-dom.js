@@ -1,22 +1,6 @@
-import {
-  newTaskButton, showTaskForm, createTaskForm, hideTaskForm, createTaskItem,
-} from '../../tasks/dom/task-dom';
-import addTask from '../../tasks/tasks';
+import formArea from '../../tasks/dom/task-form-dom';
+import createTaskItem from '../../tasks/dom/task-dom';
 import './inbox-dom.scss';
-
-const taskClick = (taskButton, taskForm) => {
-  taskButton.addEventListener('click', () => {
-    showTaskForm(taskButton, taskForm);
-  });
-};
-
-const cancelClick = (taskButton, taskForm) => {
-  const formButtons = taskForm.getElementsByClassName('form-button');
-
-  formButtons.item(0).addEventListener('click', () => hideTaskForm(taskButton, taskForm));
-
-  formButtons.item(1).addEventListener('click', () => addTask(taskButton, taskForm));
-};
 
 const createInboxList = (element) => {
   const tasks = JSON.parse(localStorage.getItem('allTasks'));
@@ -42,20 +26,11 @@ const inboxInfo = () => {
   return element;
 };
 
-const taskButtonSection = (element) => {
-  const taskButton = newTaskButton();
-  const taskForm = createTaskForm();
-  element.appendChild(taskButton);
-  element.appendChild(taskForm);
-  taskClick(taskButton, taskForm);
-  cancelClick(taskButton, taskForm);
-};
-
 const inboxPage = () => {
   const element = document.createElement('div');
   element.id = 'inbox-page';
 
-  taskButtonSection(element);
+  element.appendChild(formArea());
   element.appendChild(inboxInfo());
 
   return element;

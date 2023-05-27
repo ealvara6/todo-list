@@ -1,5 +1,3 @@
-import { hideTaskForm } from './dom/task-dom';
-
 const getId = () => {
   let id = JSON.parse(localStorage.getItem('id'));
   if (id === null) {
@@ -23,7 +21,9 @@ class Task {
 
 }
 
-const checkErrors = (title, dueDate) => {
+const checkErrors = () => {
+  const title = document.getElementById('title-input').value;
+  const dueDate = document.getElementById('due-date-input').value;
   if (title === '') {
     alert('title is missing');
     return true;
@@ -36,13 +36,11 @@ const checkErrors = (title, dueDate) => {
   return false;
 };
 
-const addTask = (taskButton, taskForm) => {
+const addTask = () => {
   const title = document.getElementById('title-input').value;
   const dueDate = document.getElementById('due-date-input').value;
   const desc = document.getElementById('desc-input').value;
   const prio = document.getElementById('prio-input').value;
-
-  if (checkErrors(title, dueDate)) { return; }
 
   const task = new Task(title, dueDate, desc, prio);
 
@@ -51,8 +49,14 @@ const addTask = (taskButton, taskForm) => {
   existingEntries.push(task);
   localStorage.setItem('allTasks', JSON.stringify(existingEntries));
   console.log(JSON.parse(localStorage.getItem('allTasks')));
-
-  hideTaskForm(taskButton, taskForm);
 };
 
-export default addTask;
+const deleteTask = (item) => {
+  console.log(item);
+};
+
+export {
+  addTask,
+  deleteTask,
+  checkErrors,
+};
