@@ -21,6 +21,7 @@ const cancelClick = (taskButton, taskForm) => {
 const createInboxList = (element) => {
   const tasks = JSON.parse(localStorage.getItem('allTasks'));
   for (let i = 0; i < tasks.length; i += 1) {
+    console.log(tasks[i]);
     element.appendChild(createTaskItem(tasks[i]));
   }
 };
@@ -32,7 +33,10 @@ const inboxInfo = () => {
   if (JSON.parse(localStorage.getItem('allTasks')) !== null) {
     createInboxList(element);
   } else {
-    element.innerHTML = 'There are no tasks available';
+    const emptyInbox = document.createElement('div');
+    emptyInbox.id = 'empty-inbox';
+    emptyInbox.innerHTML = 'There are no tasks available';
+    element.appendChild(emptyInbox);
   }
 
   return element;

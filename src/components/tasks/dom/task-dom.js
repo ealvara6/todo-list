@@ -1,5 +1,7 @@
 import './task-dom.scss';
 import plusIcon from '../../../assets/icons/plus.png';
+import editIcon from '../../../assets/icons/edit.png';
+import deleteIcon from '../../../assets/icons/delete.png';
 
 const showTaskForm = (taskButton, taskForm) => {
   taskButton.style.display = 'none';
@@ -15,6 +17,38 @@ const handleSubmit = (taskButton, taskForm) => {
   hideTaskForm(taskButton, taskForm);
   const title = document.getElementById('title-input');
   console.log(title.value);
+};
+
+const handleClick = (item, task, maxInfo) => {
+  if (!item.expand) {
+    task.style.height = '150px';
+    task.appendChild(maxInfo);
+    item.expand = true;
+  } else {
+    task.style.height = '70px';
+    task.removeChild(maxInfo);
+    item.expand = false;
+  }
+};
+
+const createEditButton = () => {
+  const element = document.createElement('button');
+
+  const icon = new Image();
+  icon.src = editIcon;
+  element.appendChild(icon);
+
+  return element;
+};
+
+const createDeleteButton = () => {
+  const element = document.createElement('button');
+
+  const icon = new Image();
+  icon.src = deleteIcon;
+  element.appendChild(icon);
+
+  return element;
 };
 
 const createTaskForm = () => {
@@ -102,7 +136,7 @@ const createTaskForm = () => {
 
   const submitButton = document.createElement('button');
   submitButton.id = 'submit-button';
-  submitButton.setAttribute('type', 'button');
+  submitButton.setAttribute('type', 'submit');
   submitButton.classList.add('form-button');
   submitButton.innerHTML = 'Submit';
   buttons.appendChild(submitButton);
@@ -112,38 +146,64 @@ const createTaskForm = () => {
 };
 
 const createTaskItem = (item) => {
-  const task = document.createElement('button');
+  const task = document.createElement('div');
   task.classList.add('task');
+
+  const minInfo = document.createElement('div');
+  minInfo.classList.add('min-info');
 
   const title = document.createElement('div');
   title.classList.add('task-title');
   title.innerHTML = item.title;
-  task.appendChild(title);
+  minInfo.appendChild(title);
 
   const titleHeader = document.createElement('div');
   titleHeader.classList.add('title-header', 'task-header');
   titleHeader.innerHTML = 'Name';
-  task.appendChild(titleHeader);
+  minInfo.appendChild(titleHeader);
 
   const dueDate = document.createElement('div');
   dueDate.classList.add('task-due-date');
   dueDate.innerHTML = item.dueDate;
-  task.appendChild(dueDate);
+  minInfo.appendChild(dueDate);
 
   const dueDateHeader = document.createElement('div');
   dueDateHeader.classList.add('due-date-header', 'task-header');
   dueDateHeader.innerHTML = 'Due Date';
-  task.appendChild(dueDateHeader);
+  minInfo.appendChild(dueDateHeader);
 
   const prio = document.createElement('div');
   prio.classList.add('task-prio');
   prio.innerHTML = item.prio;
-  task.appendChild(prio);
+  minInfo.appendChild(prio);
 
   const prioHeader = document.createElement('div');
   prioHeader.classList.add('prio-header', 'task-header');
   prioHeader.innerHTML = 'Priority';
-  task.appendChild(prioHeader);
+  minInfo.appendChild(prioHeader);
+  task.appendChild(minInfo);
+
+  const maxInfo = document.createElement('div');
+  maxInfo.classList.add('max-info');
+
+  const descHeader = document.createElement('div');
+  descHeader.classList.add('desc-header', 'task-header');
+  descHeader.innerHTML = 'Details';
+  maxInfo.appendChild(descHeader);
+
+  const desc = document.createElement('div');
+  desc.classList.add('task-desc');
+  desc.innerHTML = item.desc;
+  maxInfo.appendChild(desc);
+
+  const buttons = document.createElement('div');
+  buttons.classList.add('task-buttons');
+  buttons.appendChild(createEditButton());
+  buttons.appendChild(createDeleteButton());
+
+  task.addEventListener('click', () => handleClick(item, task, maxInfo));
+
+  maxInfo.appendChild(buttons);
 
   return task;
 };

@@ -1,12 +1,26 @@
 import { hideTaskForm } from './dom/task-dom';
 
+const getId = () => {
+  let id = JSON.parse(localStorage.getItem('id'));
+  if (id === null) {
+    id = 0;
+    localStorage.setItem('id', JSON.stringify(id += 1));
+    return JSON.parse(localStorage.getItem('id'));
+  }
+  localStorage.setItem('id', JSON.stringify(id += 1));
+  return JSON.parse(localStorage.getItem('id'));
+};
+
 class Task {
   constructor(title, dueDate, desc, prio) {
+    this.id = getId(),
     this.title = title,
     this.dueDate = dueDate,
     this.desc = desc,
-    this.prio = prio
+    this.prio = prio,
+    this.expand = false;
   }
+
 }
 
 const checkErrors = (title, dueDate) => {
