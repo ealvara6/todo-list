@@ -48,11 +48,12 @@ const addTask = () => {
   if (existingEntries === null) { existingEntries = []; }
   existingEntries.push(task);
   localStorage.setItem('allTasks', JSON.stringify(existingEntries));
-  console.log(JSON.parse(localStorage.getItem('allTasks')));
 };
 
 const deleteTask = (item) => {
-  console.log(item);
+  const taskArray = JSON.parse(localStorage.getItem('allTasks'));
+  const newTaskArray = taskArray.filter((task) => task.id !== item.id);
+  localStorage.setItem('allTasks', JSON.stringify(newTaskArray));
 };
 
 export {

@@ -42,6 +42,28 @@ const taskButtons = (taskButton, taskForm, title, dueDate) => {
   return element;
 };
 
+const projectList = () => {
+  const element = document.createElement('div');
+  element.classList.add('form-input');
+
+  const label = document.createElement('label');
+  label.setAttribute('for', 'projects');
+  label.innerHTML = 'Projects';
+  element.appendChild(label);
+
+  const projects = document.createElement('select');
+  projects.id = 'projects';
+
+  const project = document.createElement('option');
+  project.value = 'Default';
+  project.innerHTML = 'Default';
+  projects.appendChild(project);
+
+  element.appendChild(projects);
+
+  return element;
+};
+
 const createTaskForm = (taskButton) => {
   const element = document.createElement('form');
   element.classList.add('task-form');
@@ -114,6 +136,8 @@ const createTaskForm = (taskButton) => {
   });
   prio.appendChild(prioInput);
   element.appendChild(prio);
+
+  element.appendChild(projectList());
 
   element.appendChild(taskButtons(taskButton, element, titleInput, dueDateInput));
 

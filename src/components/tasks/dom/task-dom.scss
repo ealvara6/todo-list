@@ -15,7 +15,7 @@
   grid-template-rows: 80px 1fr 1fr;
   column-gap: 15px;
   width: 400px;
-  height: 200px;
+  height: 300px;
 }
 
 .task {
@@ -31,7 +31,7 @@
 .form-input {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 40px 1fr;
+  grid-template-rows: 40px 30px;
 }
 
 #form-title {
@@ -45,6 +45,9 @@
 }
 
 #desc {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 40px 1fr;
   grid-column: 1;
   grid-row: 2 / 4;
 }
@@ -62,6 +65,8 @@ textarea {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
+  grid-row: 4;
+  grid-column: 2;
   align-items: center;
   column-gap: 15px;
   button {
@@ -135,6 +140,8 @@ input[type = 'text'] {
   grid-template-rows: repeat(2, min-content);
   grid-column: 1 / -1;
   grid-row: 1;
+  padding-top: 10px;
+  row-gap: 5px;
 }
 
 .max-info {

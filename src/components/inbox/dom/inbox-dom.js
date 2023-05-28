@@ -5,7 +5,6 @@ import './inbox-dom.scss';
 const createInboxList = (element) => {
   const tasks = JSON.parse(localStorage.getItem('allTasks'));
   for (let i = 0; i < tasks.length; i += 1) {
-    console.log(tasks[i]);
     element.appendChild(createTaskItem(tasks[i]));
   }
 };
@@ -13,8 +12,9 @@ const createInboxList = (element) => {
 const inboxInfo = () => {
   const element = document.createElement('div');
   element.id = 'task-list';
+  const allTasks = JSON.parse(localStorage.getItem('allTasks'));
 
-  if (JSON.parse(localStorage.getItem('allTasks')) !== null) {
+  if (allTasks !== null && allTasks.length !== 0) {
     createInboxList(element);
   } else {
     const emptyInbox = document.createElement('div');
