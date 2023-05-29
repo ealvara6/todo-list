@@ -1,5 +1,6 @@
 import plusIcon from '../../../assets/icons/plus.png';
 import { checkErrors, addTask } from '../tasks';
+import { getProjectArray } from '../../projects/project';
 
 const showTaskForm = (taskButton, taskForm) => {
   taskButton.style.display = 'none';
@@ -54,11 +55,13 @@ const projectList = () => {
   const projects = document.createElement('select');
   projects.id = 'projects';
 
-  const project = document.createElement('option');
-  project.value = 'Default';
-  project.innerHTML = 'Default';
-  projects.appendChild(project);
-
+  const projectArray = getProjectArray();
+  projectArray.forEach((item) => {
+    const project = document.createElement('option');
+    project.value = item.name;
+    project.innerHTML = item.name;
+    projects.appendChild(project);
+  });
   element.appendChild(projects);
 
   return element;

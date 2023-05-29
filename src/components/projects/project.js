@@ -7,7 +7,28 @@ class Project {
 
 const projects = () => {
   const defaultProject = new Project('Default');
-  localStorage.setItem('projects', JSON.stringify([defaultProject]));
+  const testProject = new Project('test project');
+  localStorage.setItem('projects', JSON.stringify([defaultProject, testProject]));
 };
 
-export default projects;
+const getProjectArray = () => {
+  const projectArray = JSON.parse(localStorage.getItem('projects'));
+  return projectArray;
+};
+
+const updateProjectList = (projectArray) => {
+  localStorage.setItem('projects', JSON.stringify(projectArray));
+};
+
+const addToProject = (task) => {
+  const projectArray = getProjectArray();
+  const projectIndex = projectArray.findIndex((item) => item.name === task.project);
+  projectArray[projectIndex].tasks = task;
+  updateProjectList(projectArray);
+};
+
+export {
+  projects,
+  addToProject,
+  getProjectArray,
+};

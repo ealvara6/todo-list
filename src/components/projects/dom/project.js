@@ -1,6 +1,5 @@
 import './project.scss';
 import plusIcon from '../../../assets/icons/plus.png';
-import data from '../projects.json';
 
 const newProjectButton = () => {
   const button = document.createElement('button');
@@ -18,7 +17,8 @@ const newProjectButton = () => {
 };
 
 const createProjects = (element) => {
-  data.forEach((item) => {
+  const projects = JSON.parse(localStorage.getItem('projects'));
+  projects.forEach((item) => {
     const project = document.createElement('button');
     project.classList.add('sidebar-item');
     project.innerHTML = item.name;

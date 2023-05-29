@@ -1,3 +1,5 @@
+import { addToProject } from '../projects/project';
+
 const getId = () => {
   let id = JSON.parse(localStorage.getItem('id'));
   if (id === null) {
@@ -10,15 +12,15 @@ const getId = () => {
 };
 
 class Task {
-  constructor(title, dueDate, desc, prio) {
-    this.id = getId(),
-    this.title = title,
-    this.dueDate = dueDate,
-    this.desc = desc,
-    this.prio = prio,
+  constructor(title, dueDate, desc, prio, project) {
+    this.id = getId();
+    this.title = title;
+    this.dueDate = dueDate;
+    this.desc = desc;
+    this.prio = prio;
     this.expand = false;
+    this.project = project;
   }
-
 }
 
 const checkErrors = () => {
@@ -41,13 +43,16 @@ const addTask = () => {
   const dueDate = document.getElementById('due-date-input').value;
   const desc = document.getElementById('desc-input').value;
   const prio = document.getElementById('prio-input').value;
+  const project = document.getElementById('projects').value;
 
-  const task = new Task(title, dueDate, desc, prio);
+  const task = new Task(title, dueDate, desc, prio, project);
 
   let existingEntries = JSON.parse(localStorage.getItem('allTasks'));
   if (existingEntries === null) { existingEntries = []; }
   existingEntries.push(task);
   localStorage.setItem('allTasks', JSON.stringify(existingEntries));
+
+  addToProject(task);
 };
 
 const deleteTask = (item) => {

@@ -4,6 +4,7 @@ import deleteIcon from '../../../assets/icons/delete.png';
 import { deleteTask } from '../tasks';
 
 const handleClick = (item, task, maxInfo) => {
+  // minimizes and expands task object to show additional information
   if (!item.expand) {
     task.style.height = '150px';
     task.appendChild(maxInfo);
