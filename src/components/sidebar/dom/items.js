@@ -1,3 +1,5 @@
+import { currentPage } from '../../main-body/dom/mainBody';
+
 const item = (obj) => {
   const element = document.createElement('button');
   element.id = obj.id;
@@ -11,6 +13,10 @@ const item = (obj) => {
   const title = document.createElement('div');
   title.innerHTML = obj.name;
   element.appendChild(title);
+
+  element.addEventListener('click', () => {
+    currentPage(element);
+  });
 
   return element;
 };

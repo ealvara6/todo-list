@@ -5,15 +5,17 @@ class Project {
   }
 }
 
-const projects = () => {
-  const defaultProject = new Project('Default');
-  const testProject = new Project('test project');
-  localStorage.setItem('projects', JSON.stringify([defaultProject, testProject]));
-};
-
 const getProjectArray = () => {
   const projectArray = JSON.parse(localStorage.getItem('projects'));
   return projectArray;
+};
+
+const handleSubmit = (name) => {
+  const newProject = new Project(name);
+  const projectArray = getProjectArray();
+
+  projectArray.push(newProject);
+  localStorage.setItem('projects', JSON.stringify(projectArray));
 };
 
 const updateProjectList = (projectArray) => {
@@ -28,7 +30,7 @@ const addToProject = (task) => {
 };
 
 export {
-  projects,
   addToProject,
   getProjectArray,
+  handleSubmit,
 };

@@ -3,25 +3,32 @@ import createTaskItem from '../../tasks/dom/task-dom';
 import './inbox-dom.scss';
 
 const createInboxList = (element) => {
-  const tasks = JSON.parse(localStorage.getItem('allTasks'));
-  for (let i = 0; i < tasks.length; i += 1) {
-    element.appendChild(createTaskItem(tasks[i]));
+  // removes imbox list if one was created before
+  if (element.firstChild) {
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
   }
-};
-
-const inboxInfo = () => {
-  const element = document.createElement('div');
-  element.id = 'task-list';
   const allTasks = JSON.parse(localStorage.getItem('allTasks'));
 
   if (allTasks !== null && allTasks.length !== 0) {
-    createInboxList(element);
+    const tasks = JSON.parse(localStorage.getItem('allTasks'));
+    for (let i = 0; i < tasks.length; i += 1) {
+      element.appendChild(createTaskItem(tasks[i]));
+    }
   } else {
     const emptyInbox = document.createElement('div');
     emptyInbox.id = 'empty-inbox';
     emptyInbox.innerHTML = 'There are no tasks available';
     element.appendChild(emptyInbox);
   }
+};
+
+const inboxInfo = () => {
+  const element = document.createElement('div');
+  element.id = 'task-list';
+
+  createInboxList(element);
 
   return element;
 };
@@ -36,4 +43,7 @@ const inboxPage = () => {
   return element;
 };
 
-export default inboxPage;
+export {
+  inboxPage,
+  createInboxList,
+};

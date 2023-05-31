@@ -1,6 +1,6 @@
 import './sidebar.scss';
 import createItem from './items';
-import createProjects from '../../projects/dom/project';
+import { createProjects, createProjectModal } from '../../projects/dom/project';
 import inboxIcon from '../../../assets/icons/inbox.png';
 import todayIcon from '../../../assets/icons/today.png';
 import upcomingIcon from '../../../assets/icons/upcoming.png';
@@ -43,6 +43,8 @@ const sidebar = () => {
   element.appendChild(projectsTitle);
 
   createProjects(element);
+
+  element.appendChild(createProjectModal());
 
   return element;
 };

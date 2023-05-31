@@ -1,4 +1,5 @@
 import { addToProject } from '../projects/project';
+import updatePages from '../pages/page';
 
 const getId = () => {
   let id = JSON.parse(localStorage.getItem('id'));
@@ -53,12 +54,14 @@ const addTask = () => {
   localStorage.setItem('allTasks', JSON.stringify(existingEntries));
 
   addToProject(task);
+  updatePages();
 };
 
 const deleteTask = (item) => {
   const taskArray = JSON.parse(localStorage.getItem('allTasks'));
   const newTaskArray = taskArray.filter((task) => task.id !== item.id);
   localStorage.setItem('allTasks', JSON.stringify(newTaskArray));
+  updatePages();
 };
 
 export {

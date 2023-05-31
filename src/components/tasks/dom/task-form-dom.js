@@ -164,7 +164,7 @@ const newTaskButton = () => {
 
 const formArea = () => {
   const element = document.createElement('div');
-  element.classList.add('inbox-task-form');
+  element.classList.add('task-form-button');
 
   const taskButton = newTaskButton();
   const taskForm = createTaskForm(taskButton);

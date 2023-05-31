@@ -4,3 +4,19 @@
   grid-template-rows: min-content;
   grid-auto-rows: min-content;
 }
+
+.project-item :first-child {
+  grid-column: 1 / -1;
+}
+
+.sidebar-project {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+#project-modal {
+  input {
+    width: auto
+  }
+}
