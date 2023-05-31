@@ -29,6 +29,10 @@
   border-radius: 15px;
 }
 
+.active {
+  background-color: colors.$color3;
+}
+
 .sidebar-item:focus {
   background: colors.$color3;
 }

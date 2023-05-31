@@ -1,6 +1,6 @@
 import './mainContent.scss';
 import sidebar from '../../sidebar/dom/sidebar';
-import { mainBody } from '../../main-body/dom/mainBody';
+import mainBody from '../../main-body/dom/mainBody';
 
 const mainContent = () => {
   const element = document.createElement('div');

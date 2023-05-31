@@ -1,9 +1,13 @@
-import { currentPage } from '../../main-body/dom/mainBody';
+import { currentPage } from '../../pages/page';
 
 const item = (obj) => {
   const element = document.createElement('button');
   element.id = obj.id;
   element.classList.add('sidebar-item');
+  // sets inbox page as active on page reload
+  if (obj.id === 'inbox') {
+    element.classList.add('active');
+  }
 
   const icon = new Image();
   icon.src = obj.icon;

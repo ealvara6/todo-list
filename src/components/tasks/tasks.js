@@ -1,5 +1,5 @@
 import { addToProject } from '../projects/project';
-import updatePages from '../pages/page';
+import { updatePages } from '../pages/page';
 
 const getId = () => {
   let id = JSON.parse(localStorage.getItem('id'));
@@ -26,13 +26,19 @@ class Task {
 
 const checkErrors = () => {
   const title = document.getElementById('title-input').value;
-  const dueDate = document.getElementById('due-date-input').value;
+  // const dueDate = document.getElementById('due-date-input').value;
+  const dueDate = new Date(document.getElementById('due-date-input').value);
+  const todayDate = new Date();
   if (title === '') {
     alert('title is missing');
     return true;
   }
   if (dueDate === '') {
     alert('please enter a due date');
+    return true;
+  }
+  if (dueDate.getDay() < todayDate.getDay()) {
+    alert('please enter a valid due date');
     return true;
   }
 

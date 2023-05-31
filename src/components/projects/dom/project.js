@@ -1,8 +1,7 @@
 import './project.scss';
 import plusIcon from '../../../assets/icons/plus.png';
 import { openModal, closeModal } from '../../modal/modal';
-import { handleSubmit } from '../project';
-import { getProjectArray } from '../project';
+import { handleSubmit, getProjectArray } from '../project';
 
 const createProjectModal = () => {
   const modal = document.createElement('div');
@@ -81,6 +80,7 @@ const createProjects = (element) => {
   const projects = getProjectArray();
   projects.forEach((item) => {
     const projectButton = document.createElement('button');
+    projectButton.id = item.name;
     projectButton.classList.add('sidebar-item', 'sidebar-project');
 
     const projectName = document.createElement('div');
