@@ -28,17 +28,12 @@ const checkErrors = () => {
   const title = document.getElementById('title-input').value;
   // const dueDate = document.getElementById('due-date-input').value;
   const dueDate = new Date(document.getElementById('due-date-input').value);
-  const todayDate = new Date();
   if (title === '') {
     alert('title is missing');
     return true;
   }
-  if (dueDate === '') {
+  if (Number.isNaN(dueDate.getTime())) {
     alert('please enter a due date');
-    return true;
-  }
-  if (dueDate.getDay() < todayDate.getDay()) {
-    alert('please enter a valid due date');
     return true;
   }
 
@@ -47,7 +42,7 @@ const checkErrors = () => {
 
 const addTask = () => {
   const title = document.getElementById('title-input').value;
-  const dueDate = document.getElementById('due-date-input').value;
+  const dueDate = `${document.getElementById('due-date-input').value}T00:00`;
   const desc = document.getElementById('desc-input').value;
   const prio = document.getElementById('prio-input').value;
   const project = document.getElementById('projects').value;

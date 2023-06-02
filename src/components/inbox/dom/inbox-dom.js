@@ -35,6 +35,7 @@ const inboxInfo = () => {
 
 const inboxPage = () => {
   const element = document.createElement('div');
+  element.classList.add('page');
   element.id = 'inbox-page';
 
   element.appendChild(formArea());

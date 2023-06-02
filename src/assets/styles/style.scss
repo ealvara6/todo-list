@@ -37,6 +37,11 @@ button:active {
 	transform: scale(0.99);
 }
 
+.header {
+  font-size: 40px;
+  font-weight: bold;
+}
+
 .modal {
   display: flex;
   align-items: center;
@@ -96,4 +101,8 @@ label {
   font-size: 20px;
   width: min-content;
   white-space: nowrap;
+}
+
+.page {
+  height: 100vh;
 }

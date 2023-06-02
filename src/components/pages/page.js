@@ -1,12 +1,25 @@
 import { createInboxList, inboxPage } from '../inbox/dom/inbox-dom';
-import mainBody from '../main-body/dom/mainBody';
-import todayPage from '../today/dom/today-dom';
+import { todayPage, createTaskList } from '../today/dom/today-dom';
 import upcomingPage from '../upcoming/dom/upcoming-dom';
 import { removePage, addPage, setActivePage } from './dom/page-dom';
 
 const updatePages = () => {
-  const element = document.getElementById('task-list');
-  createInboxList(element);
+  const mainBody = document.getElementById('main-body');
+  const currentPage = mainBody.firstChild.id;
+
+  const inboxList = document.getElementById('task-list');
+  const todayList = document.getElementById('today-tasks');
+
+  switch (currentPage) {
+    case 'inbox-page':
+      createInboxList(inboxList);
+      break;
+    case 'today-page':
+      createTaskList(todayList);
+      break;
+    default:
+      console.log('error');
+  }
 };
 
 const currentPage = (item) => {
@@ -29,7 +42,6 @@ const currentPage = (item) => {
     }
   }
   setActivePage(item.id);
-  mainBody(page);
 };
 
 export {
