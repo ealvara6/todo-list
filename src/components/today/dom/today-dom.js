@@ -1,12 +1,14 @@
 import './today-dom.scss';
 import compareAsc from 'date-fns/compareAsc';
+import format from 'date-fns/format';
 import createTaskItem from '../../tasks/dom/task-dom';
 
 const todayHeader = () => {
+  const todayDate = format(new Date(), 'MM/dd/yyyy');
   const element = document.createElement('div');
   element.id = 'today-header';
   element.classList.add('header');
-  element.innerHTML = 'Today Page';
+  element.innerHTML = `Tasks for ${todayDate}`;
 
   return element;
 };
@@ -37,6 +39,8 @@ const createTaskList = (element) => {
     });
   } else {
     const emptyTasks = document.createElement('div');
+    emptyTasks.classList.add('empty-tasks');
+    emptyTasks.id = 'today-empty-tasks';
     emptyTasks.innerHTML = 'No tasks for today';
     element.appendChild(emptyTasks);
   }

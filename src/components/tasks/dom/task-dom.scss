@@ -20,6 +20,16 @@
   border-radius: 15px;
 }
 
+.task-list {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  padding-bottom: 15px;
+  row-gap: 15px;
+  width: 50vw;
+  // align-self: start;
+}
+
 .task-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
