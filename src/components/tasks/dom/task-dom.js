@@ -1,4 +1,5 @@
 import './task-dom.scss';
+import format from 'date-fns/format';
 import editIcon from '../../../assets/icons/edit.png';
 import deleteIcon from '../../../assets/icons/delete.png';
 import { deleteTask } from '../tasks';
@@ -57,7 +58,7 @@ const createTaskItem = (item) => {
 
   const dueDate = document.createElement('div');
   dueDate.classList.add('task-due-date');
-  dueDate.innerHTML = item.dueDate;
+  dueDate.innerHTML = format(new Date(item.dueDate), 'MM/dd/yyyy');
   minInfo.appendChild(dueDate);
 
   const dueDateHeader = document.createElement('div');
@@ -88,6 +89,16 @@ const createTaskItem = (item) => {
   desc.classList.add('task-desc');
   desc.innerHTML = item.desc;
   maxInfo.appendChild(desc);
+
+  const projectTitle = document.createElement('div');
+  projectTitle.classList.add('task-header');
+  projectTitle.innerHTML = 'Project';
+  maxInfo.appendChild(projectTitle);
+
+  const project = document.createElement('div');
+  project.classList.add('project');
+  project.innerHTML = item.project;
+  maxInfo.appendChild(project);
 
   const buttons = document.createElement('div');
   buttons.classList.add('task-buttons');

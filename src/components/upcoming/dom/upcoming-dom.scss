@@ -1,7 +1,8 @@
 #upcoming-page {
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: 1fr;
+    grid-auto-rows: min-content;
+    row-gap: 50px;
     justify-items: center;
     align-items: center;
     padding-top: 50px;

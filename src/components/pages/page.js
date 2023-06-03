@@ -1,6 +1,7 @@
 import { createInboxList, inboxPage } from '../inbox/dom/inbox-dom';
 import { todayPage, createTaskList } from '../today/dom/today-dom';
-import upcomingPage from '../upcoming/dom/upcoming-dom';
+import { upcomingPage, upcomingTaskList } from '../upcoming/dom/upcoming-dom';
+import projectPage from '../projects/dom/project-page';
 import { removePage, addPage, setActivePage } from './dom/page-dom';
 
 const updatePages = () => {
@@ -9,6 +10,7 @@ const updatePages = () => {
 
   const inboxList = document.getElementById('task-list');
   const todayList = document.getElementById('today-tasks');
+  const upcomingList = document.getElementById('upcoming-page');
 
   switch (currentPage) {
     case 'inbox-page':
@@ -16,6 +18,9 @@ const updatePages = () => {
       break;
     case 'today-page':
       createTaskList(todayList);
+      break;
+    case 'upcoming-page':
+      upcomingTaskList(upcomingList);
       break;
     default:
       console.log('error');
@@ -38,7 +43,7 @@ const currentPage = (item) => {
         addPage(element, upcomingPage());
         break;
       default:
-        console.log('there was an error');
+        addPage(element, projectPage(item));
     }
   }
   setActivePage(item.id);

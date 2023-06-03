@@ -6,7 +6,11 @@ class Project {
 }
 
 const getProjectArray = () => {
-  const projectArray = JSON.parse(localStorage.getItem('projects'));
+  let projectArray = JSON.parse(localStorage.getItem('projects'));
+  if (projectArray === null) {
+    localStorage.setItem('projects', JSON.stringify([new Project('Default')]));
+    projectArray = JSON.parse(localStorage.getItem('projects'));
+  }
   return projectArray;
 };
 
@@ -25,7 +29,7 @@ const updateProjectList = (projectArray) => {
 const addToProject = (task) => {
   const projectArray = getProjectArray();
   const projectIndex = projectArray.findIndex((item) => item.name === task.project);
-  projectArray[projectIndex].tasks = task;
+  projectArray[projectIndex].tasks.push(task);
   updateProjectList(projectArray);
 };
 

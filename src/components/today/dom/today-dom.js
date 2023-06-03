@@ -48,6 +48,7 @@ const createTaskList = (element) => {
 
 const todayTasks = (element) => {
   const tasksElement = document.createElement('div');
+  tasksElement.classList.add('task-list');
   tasksElement.id = 'today-tasks';
 
   createTaskList(tasksElement);

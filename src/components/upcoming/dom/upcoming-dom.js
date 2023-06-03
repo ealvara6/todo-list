@@ -21,13 +21,25 @@ const dateTasks = (date, tasks) => {
 };
 
 const upcomingTaskList = (parent) => {
+  if (parent.firstChild) {
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  }
   const dates = taskDates();
   const allTasks = JSON.parse(localStorage.getItem('allTasks'));
 
-  dates.forEach((date) => {
-    const tasks = allTasks.filter((task) => task.dueDate === date);
-    parent.appendChild(dateTasks(date, tasks));
-  });
+  if (dates.length === 0) {
+    const empty = document.createElement('div');
+    empty.classList.add('header');
+    empty.innerHTML = 'There are no upcoming tasks';
+    parent.appendChild(empty);
+  } else {
+    dates.forEach((date) => {
+      const tasks = allTasks.filter((task) => task.dueDate === date);
+      parent.appendChild(dateTasks(date, tasks));
+    });
+  }
 };
 
 const upcomingPage = () => {
@@ -38,4 +50,7 @@ const upcomingPage = () => {
   return element;
 };
 
-export default upcomingPage;
+export {
+  upcomingPage,
+  upcomingTaskList,
+};

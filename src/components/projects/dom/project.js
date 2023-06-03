@@ -2,6 +2,7 @@ import './project.scss';
 import plusIcon from '../../../assets/icons/plus.png';
 import { openModal, closeModal } from '../../modal/modal';
 import { handleSubmit, getProjectArray } from '../project';
+import { currentPage } from '../../pages/page';
 
 const createProjectModal = () => {
   const modal = document.createElement('div');
@@ -76,12 +77,16 @@ const newProjectButton = () => {
   return button;
 };
 
-const createProjects = (element) => {
+const createProjectButtons = (element) => {
   const projects = getProjectArray();
   projects.forEach((item) => {
     const projectButton = document.createElement('button');
     projectButton.id = item.name;
     projectButton.classList.add('sidebar-item', 'sidebar-project');
+
+    projectButton.addEventListener('click', () => {
+      currentPage(projectButton);
+    });
 
     const projectName = document.createElement('div');
     projectName.innerHTML = item.name;
@@ -89,7 +94,10 @@ const createProjects = (element) => {
 
     element.appendChild(projectButton);
   });
+};
 
+const createProjects = (element) => {
+  createProjectButtons(element);
   element.appendChild(newProjectButton());
 };
 

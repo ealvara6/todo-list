@@ -7,7 +7,7 @@ const mainBody = () => {
   const element = document.createElement('div');
   element.id = 'main-body';
 
-  element.appendChild(upcomingPage());
+  element.appendChild(inboxPage());
 
   return element;
 };
