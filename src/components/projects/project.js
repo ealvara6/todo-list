@@ -33,8 +33,18 @@ const addToProject = (task) => {
   updateProjectList(projectArray);
 };
 
+const deleteFromProject = (task) => {
+  const allProjects = getProjectArray();
+  const projectIndex = allProjects.findIndex((item) => task.project === item.name);
+  const taskIndex = allProjects[projectIndex].tasks.findIndex((item) => item.id === task.id);
+  allProjects[projectIndex].tasks.splice(taskIndex, 1);
+
+  localStorage.setItem('projects', JSON.stringify(allProjects));
+};
+
 export {
   addToProject,
+  deleteFromProject,
   getProjectArray,
   handleSubmit,
 };

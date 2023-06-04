@@ -81,7 +81,8 @@ const createProjectButtons = (element) => {
   const projects = getProjectArray();
   projects.forEach((item) => {
     const projectButton = document.createElement('button');
-    projectButton.id = item.name;
+    projectButton.id = `${item.name}-button`;
+    projectButton.setAttribute('value', item.name);
     projectButton.classList.add('sidebar-item', 'sidebar-project');
 
     projectButton.addEventListener('click', () => {

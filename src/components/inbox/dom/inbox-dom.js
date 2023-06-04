@@ -11,8 +11,6 @@ const createInboxList = (element) => {
   }
   const allTasks = JSON.parse(localStorage.getItem('allTasks'));
 
-  console.log(allTasks);
-
   if (allTasks !== null && allTasks.length !== 0) {
     const tasks = JSON.parse(localStorage.getItem('allTasks'));
     for (let i = 0; i < tasks.length; i += 1) {
