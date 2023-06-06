@@ -2,7 +2,7 @@ import './task-dom.scss';
 import format from 'date-fns/format';
 import editIcon from '../../../assets/icons/edit.png';
 import deleteIcon from '../../../assets/icons/delete.png';
-import { deleteTask } from '../tasks';
+import { deleteTask, handleTaskCheck } from '../tasks';
 
 const handleClick = (item, task, maxInfo) => {
   // minimizes and expands task object to show additional information
@@ -34,7 +34,39 @@ const createDeleteButton = (item) => {
   icon.src = deleteIcon;
   element.appendChild(icon);
 
-  element.addEventListener('click', () => deleteTask(item));
+  element.addEventListener('click', (e) => {
+    e.stopPropagation();
+    deleteTask(item);
+  });
+
+  return element;
+};
+
+const createCheckButton = (item) => {
+  const element = document.createElement('button');
+  const title = document.createElement('div');
+  title.classList.add('task-check');
+
+  if (item.check) {
+    title.innerHTML = 'done';
+    element.appendChild(title);
+  } else {
+    title.innerHTML = 'not done';
+    element.appendChild(title);
+  }
+
+  element.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (handleTaskCheck(item)) {
+      element.removeChild(element.firstChild);
+      title.innerHTML = 'done';
+      element.appendChild(title);
+    } else {
+      element.removeChild(element.firstChild);
+      title.innerHTML = 'not done';
+      element.appendChild(title);
+    }
+  });
 
   return element;
 };
@@ -42,6 +74,7 @@ const createDeleteButton = (item) => {
 const createTaskItem = (item) => {
   const task = document.createElement('div');
   task.classList.add('task');
+  task.id = item.id;
 
   const minInfo = document.createElement('div');
   minInfo.classList.add('min-info');
@@ -102,6 +135,7 @@ const createTaskItem = (item) => {
 
   const buttons = document.createElement('div');
   buttons.classList.add('task-buttons');
+  buttons.appendChild(createCheckButton(item));
   buttons.appendChild(createEditButton());
   buttons.appendChild(createDeleteButton(item));
 

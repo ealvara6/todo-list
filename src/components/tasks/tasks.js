@@ -1,6 +1,8 @@
 import { addToProject, deleteFromProject } from '../projects/project';
 import { updatePages } from '../pages/page';
 
+const getAllTasks = () => JSON.parse(localStorage.getItem('allTasks'));
+
 const getId = () => {
   let id = JSON.parse(localStorage.getItem('id'));
   if (id === null) {
@@ -13,7 +15,7 @@ const getId = () => {
 };
 
 class Task {
-  constructor(title, dueDate, desc, prio, project) {
+  constructor(title, dueDate, desc, prio, project, check) {
     this.id = getId();
     this.title = title;
     this.dueDate = dueDate;
@@ -21,6 +23,7 @@ class Task {
     this.prio = prio;
     this.expand = false;
     this.project = project;
+    this.check = check;
   }
 }
 
@@ -46,10 +49,11 @@ const addTask = () => {
   const desc = document.getElementById('desc-input').value;
   const prio = document.getElementById('prio-input').value;
   const project = document.getElementById('projects').value;
+  const check = false;
 
-  const task = new Task(title, dueDate, desc, prio, project);
+  const task = new Task(title, dueDate, desc, prio, project, check);
 
-  let existingEntries = JSON.parse(localStorage.getItem('allTasks'));
+  let existingEntries = getAllTasks();
   if (existingEntries === null) { existingEntries = []; }
   existingEntries.push(task);
   localStorage.setItem('allTasks', JSON.stringify(existingEntries));
@@ -58,16 +62,30 @@ const addTask = () => {
   updatePages();
 };
 
-const deleteTask = (task) => {
-  const taskArray = JSON.parse(localStorage.getItem('allTasks'));
-  const newTaskArray = taskArray.filter((item) => item.id !== task.id);
+const deleteTask = (item) => {
+  const taskArray = getAllTasks();
+  const newTaskArray = taskArray.filter((task) => task.id !== item.id);
   localStorage.setItem('allTasks', JSON.stringify(newTaskArray));
-  deleteFromProject(task);
-  updatePages(task.project);
+  deleteFromProject(item);
+  updatePages(item.project);
+};
+
+const handleTaskCheck = (item) => {
+  const taskArray = getAllTasks();
+  const TaskIndex = taskArray.findIndex((task) => task.id === item.id);
+  if (taskArray[TaskIndex].check) {
+    taskArray[TaskIndex].check = false;
+    localStorage.setItem('allTasks', JSON.stringify(taskArray));
+    return false;
+  }
+  taskArray[TaskIndex].check = true;
+  localStorage.setItem('allTasks', JSON.stringify(taskArray));
+  return true;
 };
 
 export {
   addTask,
   deleteTask,
   checkErrors,
+  handleTaskCheck,
 };
