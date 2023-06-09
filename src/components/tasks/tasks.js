@@ -90,6 +90,17 @@ const deleteTask = (item) => {
   updatePages(item.project);
 };
 
+const deleteProjectTasks = (project) => {
+  const allTasks = getAllTasks();
+  const projectTasks = allTasks.filter((task) => task.project === project.name);
+
+  projectTasks.forEach((task) => {
+    const taskIndex = allTasks.findIndex((item) => item.id === task.id);
+    allTasks.splice(taskIndex, 1);
+  });
+  localStorage.setItem('allTasks', JSON.stringify(allTasks));
+};
+
 const handleTaskCheck = (item) => {
   const taskArray = getAllTasks();
   const taskIndex = taskArray.findIndex((task) => task.id === item.id);
@@ -112,4 +123,5 @@ export {
   handleTaskCheck,
   handleEdit,
   getAllTasks,
+  deleteProjectTasks,
 };

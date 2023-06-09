@@ -1,8 +1,10 @@
 import './project.scss';
 import '../../modal/modal.scss';
 import plusIcon from '../../../assets/icons/plus.png';
+import deleteIcon from '../../../assets/icons/delete.png';
 import { openModal, closeModal } from '../../modal/modal';
-import { handleSubmit, getProjectArray } from '../project';
+import { handleSubmit, getProjectArray, checkProjectErrors, deleteProject,
+} from '../project';
 import { currentPage } from '../../pages/page';
 
 const createProjectModal = () => {
@@ -46,8 +48,12 @@ const createProjectModal = () => {
   submit.classList.add('modal-button');
   submit.innerHTML = 'Submit';
   submit.addEventListener('click', () => {
+    if (checkProjectErrors(projectNameInput.value)) {
+      return;
+    }
     closeModal(modal);
     handleSubmit(projectNameInput.value);
+    location.reload();
   });
   modalButtons.appendChild(submit);
 
@@ -93,6 +99,18 @@ const createProjectButtons = (element) => {
     const projectName = document.createElement('div');
     projectName.innerHTML = item.name;
     projectButton.appendChild(projectName);
+
+    if (item.name !== 'Default') {
+      const deleteButton = document.createElement('div');
+      deleteButton.classList.add('sidebar-icon');
+      const icon = new Image();
+      icon.src = deleteIcon;
+
+      deleteButton.addEventListener('click', () => deleteProject(item));
+
+      deleteButton.appendChild(icon);
+      projectButton.appendChild(deleteButton);
+    }
 
     element.appendChild(projectButton);
   });
