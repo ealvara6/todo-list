@@ -1,4 +1,5 @@
 import './project.scss';
+import '../../modal/modal.scss';
 import plusIcon from '../../../assets/icons/plus.png';
 import { openModal, closeModal } from '../../modal/modal';
 import { handleSubmit, getProjectArray } from '../project';

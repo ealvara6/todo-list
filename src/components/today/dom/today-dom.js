@@ -2,6 +2,7 @@ import './today-dom.scss';
 import compareAsc from 'date-fns/compareAsc';
 import format from 'date-fns/format';
 import createTaskItem from '../../tasks/dom/task-dom';
+import { getAllTasks } from '../../tasks/tasks';
 
 const todayHeader = () => {
   const todayDate = format(new Date(), 'MM/dd/yyyy');
@@ -23,7 +24,7 @@ const createTaskList = (element) => {
   const todayDate = new Date();
   todayDate.setHours(0, 0, 0, 0);
 
-  const tasksArray = JSON.parse(localStorage.getItem('allTasks'));
+  const tasksArray = getAllTasks();
 
   const tasks = tasksArray.filter((task) => {
     const taskDate = new Date(task.dueDate);

@@ -1,7 +1,8 @@
 import compareAsc from 'date-fns/compareAsc';
+import { getAllTasks } from '../tasks/tasks';
 
 const taskDates = () => {
-  const allTasks = JSON.parse(localStorage.getItem('allTasks'));
+  const allTasks = getAllTasks();
   const todayDate = new Date();
   todayDate.setHours(0, 0, 0, 0);
   let datesArray = [];

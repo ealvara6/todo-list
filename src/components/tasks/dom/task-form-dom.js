@@ -20,10 +20,7 @@ const handleSubmit = (taskButton, taskForm) => {
   addTask();
 };
 
-const taskButtons = (taskButton, taskForm, title, dueDate) => {
-  const element = document.createElement('div');
-  element.id = 'buttons';
-
+const createCancelButton = (element, taskButton, taskForm) => {
   const cancelButton = document.createElement('button');
   cancelButton.id = 'cancel-button';
   cancelButton.classList.add('form-button');
@@ -31,7 +28,9 @@ const taskButtons = (taskButton, taskForm, title, dueDate) => {
   cancelButton.innerHTML = 'Cancel';
   cancelButton.addEventListener('click', () => hideTaskForm(taskButton, taskForm));
   element.appendChild(cancelButton);
+};
 
+const createSubmitButton = (element, taskButton, taskForm, title, dueDate) => {
   const submitButton = document.createElement('button');
   submitButton.id = 'submit-button';
   submitButton.setAttribute('type', 'button');
@@ -39,11 +38,18 @@ const taskButtons = (taskButton, taskForm, title, dueDate) => {
   submitButton.innerHTML = 'Submit';
   submitButton.addEventListener('click', () => handleSubmit(taskButton, taskForm, title, dueDate));
   element.appendChild(submitButton);
+};
+
+const taskButtons = (taskButton, taskForm, title, dueDate) => {
+  const element = document.createElement('div');
+  element.id = 'buttons';
+  createCancelButton(element, taskButton, taskForm);
+  createSubmitButton(element, taskButton, taskForm, title, dueDate);
 
   return element;
 };
 
-const projectList = () => {
+const projectList = (item) => {
   const element = document.createElement('div');
   element.classList.add('form-input');
 
@@ -56,10 +62,13 @@ const projectList = () => {
   projects.id = 'projects';
 
   const projectArray = getProjectArray();
-  projectArray.forEach((item) => {
+  projectArray.forEach((expr) => {
     const project = document.createElement('option');
-    project.value = item.name;
-    project.innerHTML = item.name;
+    project.value = expr.name;
+    project.innerHTML = expr.name;
+    if (item !== undefined && item.project === expr.name) {
+      project.selected = true;
+    }
     projects.appendChild(project);
   });
   element.appendChild(projects);
@@ -70,7 +79,6 @@ const projectList = () => {
 const createTaskForm = (taskButton) => {
   const element = document.createElement('form');
   element.classList.add('task-form');
-  element.style.display = 'none';
 
   const title = document.createElement('div');
   title.id = 'form-title';
@@ -177,4 +185,8 @@ const formArea = () => {
   return element;
 };
 
-export default formArea;
+export {
+  formArea,
+  createTaskForm,
+  projectList,
+};

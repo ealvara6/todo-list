@@ -1,13 +1,125 @@
 import './task-dom.scss';
+import '../../modal/modal.scss';
 import format from 'date-fns/format';
 import editIcon from '../../../assets/icons/edit.png';
 import deleteIcon from '../../../assets/icons/delete.png';
-import { deleteTask, handleTaskCheck } from '../tasks';
+import unchecked from '../../../assets/icons/unchecked.png';
+import checked from '../../../assets/icons/checked.png';
+import { deleteTask, handleTaskCheck, handleEdit, checkErrors } from '../tasks';
+import { projectList } from './task-form-dom';
+import { openModal, closeModal } from '../../modal/modal';
+
+const editModalContent = (item, modal) => {
+  const element = document.createElement('form');
+  element.classList.add('edit-modal-form');
+
+  const title = document.createElement('div');
+  title.id = 'form-title';
+  title.classList.add('form-input');
+
+  const titleLabel = document.createElement('label');
+  titleLabel.setAttribute('for', 'title-input');
+  titleLabel.innerHTML = 'Title: ';
+  title.appendChild(titleLabel);
+
+  const titleInput = document.createElement('input');
+  titleInput.setAttribute('type', 'text');
+  titleInput.setAttribute('name', 'title');
+  titleInput.id = 'title-input';
+  titleInput.defaultValue = item.title;
+  title.appendChild(titleInput);
+  element.appendChild(title);
+
+  const dueDate = document.createElement('div');
+  dueDate.id = 'due-date';
+  dueDate.classList.add('form-input');
+
+  const dueDateLabel = document.createElement('label');
+  dueDateLabel.setAttribute('for', 'due-date-input');
+  dueDateLabel.innerHTML = 'Due Date:';
+  dueDate.appendChild(dueDateLabel);
+
+  const dueDateInput = document.createElement('input');
+  dueDateInput.setAttribute('type', 'date');
+  dueDateInput.setAttribute('name', 'due-date');
+  dueDateInput.id = 'due-date-input';
+  dueDateInput.setAttribute('value', format(new Date(item.dueDate), 'yyyy-MM-dd'));
+  dueDate.appendChild(dueDateInput);
+  element.appendChild(dueDate);
+
+  const desc = document.createElement('div');
+  desc.id = 'desc';
+  desc.classList.add('form-input');
+
+  const descLabel = document.createElement('label');
+  descLabel.setAttribute('for', 'desc');
+  descLabel.innerHTML = 'Description: ';
+  desc.appendChild(descLabel);
+
+  const descInput = document.createElement('textarea');
+  descInput.setAttribute('name', 'desc');
+  descInput.id = 'desc-input';
+  descInput.defaultValue = item.desc;
+  desc.appendChild(descInput);
+  element.appendChild(desc);
+
+  const prio = document.createElement('div');
+  prio.id = 'prio';
+  prio.classList.add('form-input');
+
+  const prioLabel = document.createElement('label');
+  prioLabel.setAttribute('for', 'prio');
+  prioLabel.innerHTML = 'Priority';
+  prio.appendChild(prioLabel);
+
+  const options = ['low', 'medium', 'high'];
+  const prioInput = document.createElement('select');
+  prioInput.id = 'prio-input';
+  options.forEach((expr) => {
+    const option = document.createElement('option');
+    option.setAttribute('value', expr);
+    if (expr === item.prio) {
+      option.selected = true;
+    }
+    option.innerHTML = expr;
+    prioInput.append(option);
+  });
+  prio.appendChild(prioInput);
+  element.appendChild(prio);
+
+  const modalButtons = document.createElement('div');
+  modalButtons.classList.add('modal-buttons');
+
+  const close = document.createElement('div');
+  close.classList.add('modal-button');
+  close.innerHTML = 'Close';
+  close.addEventListener('click', () => closeModal(modal));
+  modalButtons.appendChild(close);
+
+  const save = document.createElement('div');
+  save.classList.add('modal-button');
+  save.innerHTML = 'Save';
+  save.addEventListener('click', () => {
+    const itemId = item.id;
+    const titleValue = titleInput.value;
+    const dueDateValue = dueDateInput.value;
+    const descValue = descInput.value;
+    const prioValue = prioInput.value;
+
+    handleEdit(itemId, titleValue, dueDateValue, descValue, prioValue);
+    closeModal(modal);
+  });
+  modalButtons.appendChild(save);
+
+  element.appendChild(modalButtons);
+
+  return element;
+};
 
 const handleClick = (item, task, maxInfo) => {
   // minimizes and expands task object to show additional information
   if (!item.expand) {
-    task.style.height = '150px';
+    task.style.height = 'min-content';
     task.appendChild(maxInfo);
     item.expand = true;
   } else {
@@ -17,12 +129,42 @@ const handleClick = (item, task, maxInfo) => {
   }
 };
 
-const createEditButton = () => {
+const createEditModal = (item) => {
+  const modal = document.createElement('div');
+  modal.id = 'edit-modal';
+  modal.classList.add('modal');
+
+  const modalContent = document.createElement('div');
+  modalContent.classList.add('modal-content');
+
+  const header = document.createElement('div');
+  header.classList.add('modal-header');
+  header.innerHTML = 'Edit Task';
+  modalContent.appendChild(header);
+
+  const modalBody = document.createElement('div');
+  modalBody.classList.add('modal-body');
+  modalBody.appendChild(editModalContent(item, modal));
+  modalContent.appendChild(modalBody);
+
+  modal.appendChild(modalContent);
+
+  return modal;
+};
+
+const createEditButton = (item) => {
   const element = document.createElement('button');
 
   const icon = new Image();
   icon.src = editIcon;
   element.appendChild(icon);
+
+  element.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const editModal = createEditModal(item);
+    document.body.appendChild(editModal);
+    openModal(editModal);
+  });
 
   return element;
 };
@@ -47,24 +189,26 @@ const createCheckButton = (item) => {
   const title = document.createElement('div');
   title.classList.add('task-check');
 
+  const uncheckedIcon = new Image();
+  uncheckedIcon.src = unchecked;
+
+  const checkedIcon = new Image();
+  checkedIcon.src = checked;
+
   if (item.check) {
-    title.innerHTML = 'done';
-    element.appendChild(title);
+    element.appendChild(checkedIcon);
   } else {
-    title.innerHTML = 'not done';
-    element.appendChild(title);
+    element.appendChild(uncheckedIcon);
   }
 
   element.addEventListener('click', (e) => {
     e.stopPropagation();
     if (handleTaskCheck(item)) {
       element.removeChild(element.firstChild);
-      title.innerHTML = 'done';
-      element.appendChild(title);
+      element.appendChild(checkedIcon);
     } else {
       element.removeChild(element.firstChild);
-      title.innerHTML = 'not done';
-      element.appendChild(title);
+      element.appendChild(uncheckedIcon);
     }
   });
 
@@ -136,7 +280,7 @@ const createTaskItem = (item) => {
   const buttons = document.createElement('div');
   buttons.classList.add('task-buttons');
   buttons.appendChild(createCheckButton(item));
-  buttons.appendChild(createEditButton());
+  buttons.appendChild(createEditButton(item));
   buttons.appendChild(createDeleteButton(item));
 
   task.addEventListener('click', () => handleClick(item, task, maxInfo));

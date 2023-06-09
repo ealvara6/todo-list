@@ -1,7 +1,14 @@
-import { addToProject, deleteFromProject } from '../projects/project';
+import { addToProject, deleteFromProject, updateProject } from '../projects/project';
 import { updatePages } from '../pages/page';
 
-const getAllTasks = () => JSON.parse(localStorage.getItem('allTasks'));
+const getAllTasks = () => {
+  let allTasks = JSON.parse(localStorage.getItem('allTasks'));
+  if (allTasks === null) {
+    localStorage.setItem('allTasks', JSON.stringify([]));
+    allTasks = JSON.parse(localStorage.getItem('allTasks'));
+  }
+  return allTasks;
+};
 
 const getId = () => {
   let id = JSON.parse(localStorage.getItem('id'));
@@ -29,7 +36,6 @@ class Task {
 
 const checkErrors = () => {
   const title = document.getElementById('title-input').value;
-  // const dueDate = document.getElementById('due-date-input').value;
   const dueDate = new Date(document.getElementById('due-date-input').value);
   if (title === '') {
     alert('title is missing');
@@ -41,6 +47,20 @@ const checkErrors = () => {
   }
 
   return false;
+};
+
+const handleEdit = (itemId, newTitle, newDueDate, newDesc, newPrio) => {
+  const allTasks = getAllTasks();
+  const taskIndex = allTasks.findIndex((item) => item.id === itemId);
+
+  allTasks[taskIndex].title = newTitle;
+  allTasks[taskIndex].dueDate = newDueDate;
+  allTasks[taskIndex].desc = newDesc;
+  allTasks[taskIndex].prio = newPrio;
+
+  localStorage.setItem('allTasks', JSON.stringify(allTasks));
+  updateProject(allTasks[taskIndex]);
+  updatePages();
 };
 
 const addTask = () => {
@@ -88,4 +108,6 @@ export {
   deleteTask,
   checkErrors,
   handleTaskCheck,
+  handleEdit,
+  getAllTasks,
 };

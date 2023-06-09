@@ -1,4 +1,4 @@
-import formArea from '../../tasks/dom/task-form-dom';
+import { formArea } from '../../tasks/dom/task-form-dom';
 import createTaskItem from '../../tasks/dom/task-dom';
 import './inbox-dom.scss';
 
