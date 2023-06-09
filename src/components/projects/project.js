@@ -44,8 +44,9 @@ const updateProject = (task) => {
   allProjects[projectIndex].tasks[taskIndex].dueDate = task.dueDate;
   allProjects[projectIndex].tasks[taskIndex].desc = task.desc;
   allProjects[projectIndex].tasks[taskIndex].prio = task.prio;
-
-  localStorage.setItem('projects', JSON.stringify(allProjects));
+  allProjects[projectIndex].tasks[taskIndex].check = task.check;
+  
+  updateProjectList(allProjects);
 };
 
 const deleteFromProject = (task) => {

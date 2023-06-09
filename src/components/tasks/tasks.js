@@ -92,14 +92,16 @@ const deleteTask = (item) => {
 
 const handleTaskCheck = (item) => {
   const taskArray = getAllTasks();
-  const TaskIndex = taskArray.findIndex((task) => task.id === item.id);
-  if (taskArray[TaskIndex].check) {
-    taskArray[TaskIndex].check = false;
+  const taskIndex = taskArray.findIndex((task) => task.id === item.id);
+  if (taskArray[taskIndex].check) {
+    taskArray[taskIndex].check = false;
     localStorage.setItem('allTasks', JSON.stringify(taskArray));
+    updateProject(taskArray[taskIndex]);
     return false;
   }
-  taskArray[TaskIndex].check = true;
+  taskArray[taskIndex].check = true;
   localStorage.setItem('allTasks', JSON.stringify(taskArray));
+  updateProject(taskArray[taskIndex]);
   return true;
 };
 
